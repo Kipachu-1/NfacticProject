@@ -1,0 +1,1 @@
+Please just open HTML File to Start the Game.

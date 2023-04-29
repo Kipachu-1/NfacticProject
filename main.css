@@ -1,0 +1,124 @@
+body {
+  background-color: #43345b;
+  position: relative;
+}
+.bot-active {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.stop-bot-btn {
+  font-size: 16px;
+  color: white;
+}
+.big-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  margin: 0;
+  flex-direction: column;
+}
+.game-container {
+  transition: 0.5s;
+  display: grid;
+  grid-template-columns: repeat(4, 75px);
+  grid-template-rows: repeat(4, 75px);
+  width: fit-content;
+  height: fit-content;
+  gap: 8px;
+  padding: 10px;
+  background-color: rgb(129, 123, 255);
+  border-radius: 4px;
+}
+.game-sets {
+  display: flex;
+  width: 300px;
+  align-items: center;
+  height: fit-content;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+.level-select {
+  width: 100px;
+}
+.number-container {
+  font-size: 22px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(96, 90, 83, 0.337);
+  color: white;
+}
+.record-container {
+  font-size: 18px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.record-container p {
+  margin: 0;
+}
+.lose-modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #3b00d174;
+  z-index: 100;
+} 
+
+.plusani {
+  animation-name: a;
+  animation-duration: 0.3s;
+}
+
+
+.x2 {
+  background-color: #00000038;
+}
+.x4 {
+  background-color: #0f005238;
+}
+.x8 {
+  background-color: #21008b6a;
+}
+.x16 {
+  background-color: #24008074;
+}
+.x32 {
+  background-color: #24008098;
+}
+.x64 {
+  background-color: #2b009697;
+}
+.x128 {
+  background-color: #3000abdc;
+}
+.x256 {
+  background-color: #29018f95;
+}
+.x512 {
+  background-color: #180056dd;
+}
+.x1024 {
+  background-color: #11003bb5;
+}
+.x2048 {
+  background-color: #100038dd;
+}
