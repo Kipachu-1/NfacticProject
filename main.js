@@ -4,6 +4,7 @@ const levelSelect = document.querySelector(".level-select");
 const maxNumber = document.querySelector(".max-number");
 const curNumber = document.querySelector(".cur-number");
 let score = 0;
+let maxScore = 0;
 const stopBotBtn = document.querySelector(".stop-bot-btn");
 const botActive = document.querySelector(".bot-active-icon");
 const loseModal = document.querySelector(".lose-modal");
@@ -221,8 +222,13 @@ const updateBoard = (board) => {
     }
   }
   let dif = sumBoard(board) - score;
-  curNumber.innerHTML = `Score: ${score + dif}`;
-  maxNumber.innerHTML = `Best: ${checkMax()}`;
+  let newScore = score + dif;
+  curNumber.innerHTML = `Score: ${newScore}`;
+  maxNumber.innerHTML = `Best: ${maxScore}`;
+  if (maxScore < newScore) {
+    maxNumber.innerHTML = `Best: ${newScore}`;
+    maxScore = newScore;
+  }
   if (!hasMoves()) {
     loseModal.style.display = "flex";
   }
