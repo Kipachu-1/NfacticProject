@@ -34,8 +34,13 @@ body {
   height: fit-content;
   gap: 8px;
   padding: 10px;
-  background-color: rgb(129, 123, 255);
+  background-color: rgb(111, 111, 111);
   border-radius: 4px;
+}
+.record-container div{
+  display: flex;
+  row-gap: 10px;
+  column-gap: 10px;
 }
 .game-sets {
   display: flex;

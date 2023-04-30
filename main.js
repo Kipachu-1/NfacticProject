@@ -5,11 +5,14 @@ const maxNumber = document.querySelector(".max-number");
 const curNumber = document.querySelector(".cur-number");
 let score = 0;
 let maxScore = 0;
+let bestTimeNumber = 0;
+let curTimeNumber = 0;
 const stopBotBtn = document.querySelector(".stop-bot-btn");
 const botActive = document.querySelector(".bot-active-icon");
 const loseModal = document.querySelector(".lose-modal");
 let heisActive = false;
 const maxTime = document.querySelector(".max-time");
+const curTime = document.querySelector(".cur-time");
 let globalMax = 0;
 window.onload = function () {
   startGame();
@@ -41,6 +44,7 @@ const setLength = (length) => {
 levelSelect.addEventListener("change", checkLevel);
 function startGame() {
   createBoard(4);
+
   updateBoard(board);
 }
 
@@ -59,7 +63,6 @@ document.onkeyup = (e) => {
   }
 };
 // ===================================Helpers======================================
-
 const filterZero = (row) => {
   return row.filter((number) => number !== 0);
 };
@@ -112,7 +115,31 @@ const unshiftRow = (row) => {
   }
   return row;
 };
+const getTime = (time) => {
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+  return { minutes, seconds };
+};
+const updateTime = () => {
+  let time = getTime(curTimeNumber);
+  curTime.innerHTML = `Time: ${time.minutes}:${time.seconds}`;
+};
+
 // ==================================logic funcs====================================
+let timeConterInterval;
+const startCounter = () => {
+  clearInterval(timeConterInterval);
+  curTimeNumber = 0;
+  updateTime();
+  timeConterInterval = setInterval(() => {
+    if(hasMoves){
+      curTimeNumber += 1;
+      updateTime();
+    }
+    
+  }, 1000);
+};
+
 const slide = (row) => {
   let zeroNoRow = filterZero(row);
   for (let i = 0; i < zeroNoRow.length - 1; i++) {
@@ -203,6 +230,7 @@ const createBoard = (length) => {
     newBoard.push(row);
   }
   board = newBoard;
+  startCounter();
   updateBoard(newBoard);
 };
 
@@ -222,12 +250,16 @@ const updateBoard = (board) => {
     }
   }
   let dif = sumBoard(board) - score;
-  let newScore = score + dif;
+  let newScore = score + dif + dif;
   curNumber.innerHTML = `Score: ${newScore}`;
   maxNumber.innerHTML = `Best: ${maxScore}`;
-  if (maxScore < newScore) {
+  if (maxScore < newScore ) {
+      
+    let time = getTime(curTimeNumber);
     maxNumber.innerHTML = `Best: ${newScore}`;
     maxScore = newScore;
+    bestTimeNumber = curTimeNumber;
+    maxTime.innerHTML = `Time: ${time.minutes}:${time.seconds}`;
   }
   if (!hasMoves()) {
     loseModal.style.display = "flex";
@@ -287,7 +319,6 @@ const botMove = () => {
     return;
   }
   var moveName = "";
-  let zeroes = 0;
   let leftBoard = slideLeft(board);
   let rightBoard = slideRight(board);
   let upBoard = slideUp(board);
@@ -296,10 +327,6 @@ const botMove = () => {
   let rightSum = sumBoard(rightBoard);
   let upSum = sumBoard(upBoard);
   let downSum = sumBoard(downBoard);
-  let leftZeroes = checkZeros(leftBoard);
-  let rightZeroes = checkZeros(rightBoard);
-  let upZeroes = checkZeros(upBoard);
-  let downZeroes = checkZeros(downBoard);
   if (leftSum >= sum) {
     moveName = "Left";
     sum = leftSum;
